@@ -11,7 +11,7 @@ def update_button_text(event=None):
     text_content = textbox.get("1.0", "end-1c")  # Get the content of the Text widget
     if "https" in text_content.lower():
         button_search.config(text="DOWNLOAD")
-        button_search.config(command=lambda: download_video('url'))
+        button_search.config(command=lambda: download_video(text_content))
     else:
         button_search.config(text="SEARCH")
 
@@ -39,7 +39,7 @@ def add_videos_to_container():
         #label.pack(fill='x', padx=10, pady=5)
 
 def download_video(url: str):
-    print(url)
+    Service.get_video_by_url(url)
 
 # Title
 header = tk.Label(text="Youtube Music Downloader", font=("Arial", 28))
