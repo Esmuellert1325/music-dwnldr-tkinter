@@ -21,3 +21,18 @@ def get_video_by_url(url :str):
         stream.download(f"C:/Users/{user_name}/Downloads", f"{yt.title}.mp3")
     except:
         print("Error occured")
+
+
+def get_videos_by_search(search_query: str):
+    s = Search(search_query)
+    results = s.results
+    videos = []
+
+    for stream in results:
+        videos.append({
+            'url': stream.watch_url,
+            'cover': stream.thumbnail_url,
+            'title': stream.title
+        })
+
+    return videos
