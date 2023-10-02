@@ -49,8 +49,6 @@ def create_video_box(video):
 def add_videos_to_container():
     for video in videos:
         create_video_box(video)
-        #label = tk.Label(scrollable_frame, font=("Arial", 20), text=video, wraplength=300)
-        #label.pack(fill='x', padx=10, pady=5)
 
 def download_video(url: str):
     try:
@@ -83,10 +81,6 @@ button_search = tk.Button(window, width=10, height=1, font=("Arial", 14), text="
 button_search.pack()
 
 # Container logic
-#container = tk.Frame(window, width=200, height=100, background="green")
-#container.pack(fill=tk.BOTH, expand=True)
-#container.pack_forget()
-
 canvas = tk.Canvas(window)
 canvas.pack(side="left", fill="both", expand=True)
 
@@ -96,10 +90,17 @@ scrollbar.pack(side="right", fill="y")
 canvas.configure(yscrollcommand=scrollbar.set)
 
 container = tk.Frame(canvas)
+container.pack(expand=True, fill="x")
 canvas.create_window((canvas.winfo_width() / 2, 0), window=container, anchor="n")
 
 def on_mousewheel(event):
     canvas.yview_scroll(-1 * (event.delta // 120), "units")
+
+def center_container(event):
+    canvas.update_idletasks()
+    canvas.create_window(canvas.winfo_width() / 2, 0, window=container, anchor="n")
+
+canvas.bind("<Configure>", center_container)
 
 canvas.bind_all("<MouseWheel>", on_mousewheel)
 
